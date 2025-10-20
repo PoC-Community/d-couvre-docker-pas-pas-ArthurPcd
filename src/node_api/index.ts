@@ -1,24 +1,21 @@
 import express from "express";
 import { get } from "env-var";
 
-
 const app = express();
-
-const port: number = get('PORT').required().asPortNumber();
+const port: number = get("PORT").required().asPortNumber();
 
 async function initServer() {
-  app.listen(port, '0.0.0.0');
-  console.log("Server listen on http://localhost:" + port);
+    app.listen(port, "0.0.0.0", () => {
+        console.log(`✅ Server is running at http://localhost:${port}`);
+    });
 }
 
 async function main() {
-  await initServer();
+    await initServer();
 
-  app.get('/', (req, res) => {
-    res.status(200);
-    res.send("Welcome to the workshop!")
-  });
+    app.get("/", function (req: any, res: any) {
+        res.status(200).send("Welcome to the workshop!");
+    });
 }
 
-main()
-  .catch((e) => console.error(e));
+main().catch((e) => console.error(e));
